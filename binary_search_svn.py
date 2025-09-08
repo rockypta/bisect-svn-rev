@@ -66,12 +66,15 @@ if __name__ == "__main__":
     parser.add_argument("start_rev", type=int, help="The starting revision.")
     parser.add_argument("end_rev", type=int, help="The ending revision.")
     parser.add_argument("text", help="The text to search for.")
+    parser.add_argument("command", nargs=argparse.REMAINDER, help="The command to execute.")
+
     args = parser.parse_args()
 
-    # PLACEHOLDER: Replace with your command and arguments
-    command = ["echo", "hello"]
+    if not args.command:
+        print("Error: You must specify a command to execute.")
+        exit(1)
 
-    first_rev = binary_search_revisions(args.start_rev, args.end_rev, args.text, command)
+    first_rev = binary_search_revisions(args.start_rev, args.end_rev, args.text, args.command)
 
     if first_rev != -1:
         print(f"The first revision containing the text is: {first_rev}")
